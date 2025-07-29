@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, Form, Cookie
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from typing import Optional
 
 app = FastAPI()
 
@@ -30,15 +31,26 @@ async def read_root(
 async def goto_next_page(
     request: Request,
     page: int = Cookie(None),
-    scenario: str = Form(...),
-    approach: str = Form(...),
+    form_scenario: Optional[str] = Form(None, alias="scenario"),
+    form_approach: Optional[str] = Form(None, alias="approach"),
+    cookie_scenario: Optional[str] = Cookie(None, alias="scenario"),
+    cookie_approach: Optional[str] = Cookie(None, alias="approach"),
 ):
     response = templates.TemplateResponse(
-        "result.html", {"request": request, "scenario": scenario, "approach": approach}
+        "result.html",
+        {
+            "request": request,
+            "scenario": form_scenario or cookie_scenario,
+            "approach": form_approach or cookie_approach,
+        },
     )
-    response.set_cookie(key="scenario", value=scenario)
-    response.set_cookie(key="approach", value=approach)
+
+    if form_scenario is not None and cookie_scenario is None:
+        response.set_cookie(key="scenario", value=form_scenario)
+    if form_approach is not None and cookie_approach is None:
+        response.set_cookie(key="approach", value=form_approach)
     response.set_cookie(key="page", value=page + 1)
+
     return response
 
 
