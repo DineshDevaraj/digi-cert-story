@@ -17,12 +17,11 @@
             }
 
             // Then submit combinedData via fetch or XMLHttpRequest
-            fetch('/submit', {
+            fetch('/next-page', {
                 method: 'POST',
                 body: combinedData,
-            }).then(response => response.text())
-            .then(html => {
-                document.getElementById('page-content').innerHTML = html;
+            }).then(response => {
+                window.location.reload();
             });
         }
     </script>
