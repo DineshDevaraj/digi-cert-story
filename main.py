@@ -17,13 +17,13 @@ async def read_root(
     approach: str = Cookie(None),
 ):
     if page is None:
-        response = templates.TemplateResponse("page1.html", {"request": request})
+        response = templates.TemplateResponse("page1.html", {"request": request, "page": 1})
         response.set_cookie(key="page", value=1)
         return response
 
     return templates.TemplateResponse(
         f"page{page}.html",
-        {"request": request, "scenario": scenario, "approach": approach},
+        {"request": request, "page": page, "scenario": scenario, "approach": approach},
     )
 
 
