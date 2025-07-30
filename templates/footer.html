@@ -14,4 +14,8 @@
         event.preventDefault(); // Prevent default button behavior if it's inside a form
         goto_next_page();
     });
+    document.getElementById('restart').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default button behavior if it's inside a form
+        restart();
+    });
 </script>

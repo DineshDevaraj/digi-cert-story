@@ -64,4 +64,13 @@ async def goto_prev_page(
     return response
 
 
+@app.post("/restart", response_class=HTMLResponse)
+async def restart(
+    response: Response,
+):
+    response.set_cookie(key="page", value=2)
+    response.status_code = status.HTTP_200_OK
+    return response
+
+
 # uvicorn main:app --reload --host 0.0.0.0 --port 7071

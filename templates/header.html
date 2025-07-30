@@ -17,5 +17,12 @@
                 window.location.reload();
             });
         }
+        function restart() {
+            fetch('/restart', {
+                method: 'POST',
+            }).then(response => {
+                window.location.reload();
+            });
+        }
     </script>
 </head>
