@@ -8,6 +8,13 @@ app = FastAPI()
 # Set up Jinja2 templates
 templates = Jinja2Templates(directory="templates")
 
+source_folder = {}
+scenario = ["Validate Website", "Network Management System"]
+approach = ["Theoretical", "Command Line Interface", "Python"]
+for i, s in enumerate(scenario):
+    for j, a in enumerate(approach):
+        source_folder[(s, a)] = f"combination{i+1}{j+1}"
+
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(
@@ -16,13 +23,15 @@ async def read_root(
     scenario: str = Cookie(None),
     approach: str = Cookie(None),
 ):
-    if page is None:
-        response = templates.TemplateResponse("page1.html", {"request": request, "page": 1})
-        response.set_cookie(key="page", value=1)
+    page = page or 1
+    if page in (1, 2):
+        response = templates.TemplateResponse(f"page{page}.html", {"request": request, "page": page})
+        response.set_cookie(key="page", value=page)
         return response
 
+    folder = source_folder[(scenario, approach)]
     return templates.TemplateResponse(
-        f"page{page}.html",
+        f"{folder}/page{page}.html",
         {"request": request, "page": page, "scenario": scenario, "approach": approach},
     )
 
