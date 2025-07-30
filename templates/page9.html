@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <section id="page-title" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">Digital Certificate Story</h2>
+                            <p class="mt-3 text-secondary">Story continues for <b><i>{{ scenario }}</i></b> scenario
+                                with <b><i>{{ approach }}</i></b> explanation</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="role-explanation" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">{{ page }}. Generate Digital Certificate</h2>
+                            <p class="mt-3 text-secondary">
+                                <ol class="text-secondary" style="margin-bottom:0; max-width: 750px;">
+                                    <li class="mb-3">After receiving the CSR (.csr file) MicroCert will start the process
+                                        of signing the certificate. The result will be a rothchild.crt file that will be send back
+                                        to the bank.</li>
+                                    <li class="mb-3">Certain fields in the CSR are called (CRI) Certificate Request Information.
+                                        Fields like applicant's-name, applicant's-address, applicant's-public-key and
+                                        applicant's-signature are part of the CRI.</li>
+                                    <li class="mb-3">Generate message-digest (hash) for CRI. Using MicroCert's private key generate
+                                        MicroCert's-signature for this hash, add MicroCert's-signature to the rothchild.crt file
+                                        and add MicroCert's public key to rothchild.crt file.</li>
+                                    <li class="mb-3">Send rothchild.crt file to the bank. <b>Note</b> applicant's-signature and
+                                        MicroCert's-signature are different, Applicant's public key and MicroCert's pulic key are
+                                        different. Don't confuse between them.</li>
+                                </ol>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                {% include "footer.html" %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
