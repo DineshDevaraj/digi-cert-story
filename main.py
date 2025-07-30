@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, Cookie
+from fastapi import FastAPI, Request, Form, Cookie, Response, status
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from typing import Optional
@@ -51,6 +51,16 @@ async def goto_next_page(
         response.set_cookie(key="approach", value=form_approach)
     response.set_cookie(key="page", value=page + 1)
 
+    return response
+
+
+@app.post("/prev-page", response_class=HTMLResponse)
+async def goto_prev_page(
+    response: Response,
+    page: int = Cookie(None),
+):
+    response.set_cookie(key="page", value=page - 1)
+    response.status_code = status.HTTP_200_OK
     return response
 
 
