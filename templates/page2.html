@@ -13,30 +13,23 @@
             });
         }
         function combineAndSubmit() {
-            const form1 = document.getElementById('scenarioForm');
-            const form2 = document.getElementById('approachForm');
-
-            const combinedData = new FormData(form1);
-            // Check if FormData is empty
-            if (![...combinedData.keys()].length) {
-                // No form fields present, raise error or alert
-                alert("Select any one scenario.");
-                throw new Error("scenario not selected");
-            }
-
-            const form2Data = new FormData(form2);
-            // Check if FormData is empty
-            if (![...form2Data.keys()].length) {
-                // No form fields present, raise error or alert
+            combinedData = new FormData()
+            validate_and_extract("scenario", combinedData);
+            validate_and_extract("approach", combinedData);
+            submit_combined_data(combinedData)
+        }
+        function validate_and_extract(form_name, output) {
+            const form = document.getElementById(`${form_name}Form`);
+            const formData = new FormData(form);
+            if (![...formData.keys()].length) {
                 alert("Select any one approach.");
                 throw new Error("approach not selected");
             }
-
-            for (let [key, value] of form2Data.entries()) {
-                combinedData.append(key, value);
+            for (let [key, value] of formData.entries()) {
+                output.append(key, value);
             }
-
-            // Then submit combinedData via fetch or XMLHttpRequest
+        }
+        function submit_combined_data(combinedData) {
             fetch('/next-page', {
                 method: 'POST',
                 body: combinedData,
