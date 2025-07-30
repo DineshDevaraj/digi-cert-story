@@ -27,37 +27,32 @@ async def read_root(
     )
 
 
+@app.post("/submit-scenario-approach", response_class=HTMLResponse)
+async def set_scenario_approach(
+    response: Response,
+    scenario: Optional[str] = Form(...),
+    approach: Optional[str] = Form(...),
+):
+    response.set_cookie(key="scenario", value=scenario)
+    response.set_cookie(key="approach", value=approach)
+    response.status_code = status.HTTP_200_OK
+    return response
+
+
 @app.post("/next-page", response_class=HTMLResponse)
 async def goto_next_page(
-    request: Request,
-    page: int = Cookie(None),
-    form_scenario: Optional[str] = Form(None, alias="scenario"),
-    form_approach: Optional[str] = Form(None, alias="approach"),
-    cookie_scenario: Optional[str] = Cookie(None, alias="scenario"),
-    cookie_approach: Optional[str] = Cookie(None, alias="approach"),
+    response: Response,
+    page: int = Cookie(...),
 ):
-    response = templates.TemplateResponse(
-        "result.html",
-        {
-            "request": request,
-            "scenario": form_scenario or cookie_scenario,
-            "approach": form_approach or cookie_approach,
-        },
-    )
-
-    if form_scenario is not None and cookie_scenario is None:
-        response.set_cookie(key="scenario", value=form_scenario)
-    if form_approach is not None and cookie_approach is None:
-        response.set_cookie(key="approach", value=form_approach)
     response.set_cookie(key="page", value=page + 1)
-
+    response.status_code = status.HTTP_200_OK
     return response
 
 
 @app.post("/prev-page", response_class=HTMLResponse)
 async def goto_prev_page(
     response: Response,
-    page: int = Cookie(None),
+    page: int = Cookie(...),
 ):
     response.set_cookie(key="page", value=page - 1)
     response.status_code = status.HTTP_200_OK

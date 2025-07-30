@@ -30,9 +30,16 @@
             }
         }
         function submit_combined_data(combinedData) {
-            fetch('/next-page', {
+            fetch('/submit-scenario-approach', {
                 method: 'POST',
                 body: combinedData,
+            }).then(response => {
+                goto_next_page();
+            });
+        }
+        function goto_next_page() {
+            fetch('/next-page', {
+                method: 'POST',
             }).then(response => {
                 window.location.reload();
             });
