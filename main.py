@@ -69,6 +69,8 @@ async def restart(
     response: Response,
 ):
     response.set_cookie(key="page", value=2)
+    response.delete_cookie(key="scenario")
+    response.delete_cookie(key="approach")
     response.status_code = status.HTTP_200_OK
     return response
 
