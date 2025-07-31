@@ -23,7 +23,8 @@
                             <li class="mb-3">
                                 Sign rothchild.csr using microcert.crt & microcert.priv<br/>
                                 <code class="custom-code">
-                                    openssl ca -in rothchild.csr -out rothchild.crt -cert microcert.crt -keyfile microcert.priv
+                                    openssl x509 -req -in rothchild.csr -CA microcert.crt -CAkey microcert.priv
+                                        -CAcreateserial -out rothchild.crt -days 365 -sha256
                                 </code>
                             </li>
                             <li class="mb-3">
