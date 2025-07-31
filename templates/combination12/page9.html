@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<body class="bg-light">
+    {% include "restart.html" %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <section id="page-title" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">Digital Certificate Story</h2>
+                            <p class="mt-3 text-secondary">Story continues for <b><i>{{ scenario }}</i></b> scenario
+                                with <b><i>{{ approach }}</i></b> explanation</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="role-explanation" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">{{ page }}. Congratulations Part-1 is complete</h2>
+                            <ol class="text-secondary">
+                            <li class="mb-3">
+                                You can have successfully configures digital-certificate to Rothchild Bank's web-server
+                            </li>
+                            <li class="mb-3">
+                                In the process you have learned how digital-certificate is created using openssl.
+                            </li>
+                        </div>
+                    </div>
+                </section>
+                {% include "footer.html" %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

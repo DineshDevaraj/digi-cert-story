@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<body class="bg-light">
+    {% include "restart.html" %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <section id="page-title" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">Digital Certificate Story</h2>
+                            <p class="mt-3 text-secondary">Story continues for <b><i>{{ scenario }}</i></b> scenario
+                                with <b><i>{{ approach }}</i></b> explanation</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="role-explanation" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">{{ page }}. Add certificate to bank's web-server</h2>
+                            <ol class="text-secondary">
+                            <li class="mb-3">
+                                You need to add rothchild.crt file to web-server.<br/>
+                            </li>
+                            <li class="mb-3">
+                                The steps will be different for different web-servsers. Here I have given the steps for Nginx.
+                            </li>
+                            <li class="mb-3">
+                                Copy rothchild.crt and rothchild.priv to standard folder.
+                                <code class="custom-code">
+                                    cp ./rothchild.crt /etc/nginx/ssl/rothchildbank.com<br/>
+                                    cp ./rothchild.priv /etc/nginx/ssl/rothchildbank.com
+                                </code>
+                            </li>
+                            <li class="mb-3">
+                                Add the following lines to Nginx config file.
+                                <code class="custom-code">
+                                    ssl_certificate /etc/nginx/ssl/rothchildbank.com/rothchild.crt<br/>
+                                    ssl_certificate_key /etc/nginx/ssl/rothchildbank.com/rothchild.priv
+                                </code>
+                            </li>
+                            <li>
+                                For more accurate details and complete steps please refer to Nginx documentation or respective
+                                documentation for any other web-server.
+                            </li>
+                        </div>
+                    </div>
+                </section>
+                {% include "footer.html" %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

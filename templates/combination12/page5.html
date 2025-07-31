@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<body class="bg-light">
+    {% include "restart.html" %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <section id="page-title" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">Digital Certificate Story</h2>
+                            <p class="mt-3 text-secondary">Story continues for <b><i>{{ scenario }}</i></b> scenario
+                                with <b><i>{{ approach }}</i></b> explanation</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="role-explanation" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">{{ page }}. MicroCert's self-signed certificate.</h2>
+                            <ol class="text-secondary">
+                            <li class="mb-3">
+                                Now MicroCert has a CSR. Next it should generate a self-signed certificate.
+                            </li>
+                            <li class="mb-3">
+                                The conept of self-signed certificate was discussed in the theoretical explanation for simplicity.
+                            </li>
+                            <li class="mb-3">
+                                Generate as self-signed certificate.
+                                <code class="custom-code">
+                                    openssl x509 -req -in microcert.csr -signkey microcert.priv -out microcert.crt -days 365
+                                </code>
+                            </li>
+                            <li class="mb-3">
+                                View microcert.crt generated in previous step.
+                                <code class="custom-code">
+                                    openssl x509 -in microcert.crt -text -noout
+                                </code>
+                            </li>
+                            <li class="mb-3">
+                                Next MicroCert should publish the self-signed certificate to all the web-browsers.
+                            </li>
+                            <li>
+                                Now MicroCert has all in place and it can start to serve customers.
+                            </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+                {% include "footer.html" %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

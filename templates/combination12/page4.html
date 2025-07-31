@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<body class="bg-light">
+    {% include "restart.html" %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <section id="page-title" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">Digital Certificate Story</h2>
+                            <p class="mt-3 text-secondary">Story continues for <b><i>{{ scenario }}</i></b> scenario
+                                with <b><i>{{ approach }}</i></b> explanation</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="role-explanation" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">{{ page }}. MicroCert's (CSR) Certifcate Sign Request.</h2>
+                            <ol class="text-secondary">
+                            <li class="mb-3">
+                                Now MicroCert has both priv & pub key. Next it should generate a CSR & self-signed certificate.
+                            </li>
+                            <li class="mb-3">
+                                Generate (CSR) Certificate Sign Request.
+                                <code class="custom-code">
+                                    openssl req -new -key microcert.priv -out microcert.csr -subj
+                                        "/C=US/ST=California/L=San Francisco/O=Microcert CA Inc./CN=microcert.com"
+                                </code>
+                            </li>
+                            <li class="mb-3">
+                                View microcert.csr generated in previous step.
+                                <code class="custom-code">
+                                    openssl req -in microcert.csr -text -noout -verify
+                                </code>
+                            </li>
+                            <li>
+                                Now there is a CSR next go ahead and create a self-signed certificate.
+                            </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+                {% include "footer.html" %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<body class="bg-light">
+    {% include "restart.html" %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <section id="page-title" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">Digital Certificate Story</h2>
+                            <p class="mt-3 text-secondary">Story continues for <b><i>{{ scenario }}</i></b> scenario
+                                with <b><i>{{ approach }}</i></b> explanation</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="role-explanation" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">{{ page }}. Rothchild bank's priv key, pub key & csr</h2>
+                            <ol class="text-secondary">
+                            <li class="mb-3">
+                                Generate private key.
+                                <code class="custom-code">
+                                    openssl genrsa -out rothchild.priv 2048
+                                </code>
+                            </l1>
+                            <li class="mb-3">
+                                Extract public key from private key.
+                                <code class="custom-code">
+                                    openssl rsa -in rothchild.priv -pubout -out rothchild.pub
+                                </code>
+                            </li>
+                            <li class="mb-3">
+                                Generate (CSR) Certificate Sign Request.
+                                <code class="custom-code">
+                                    openssl req -new -key rothchild.priv -out rothchild.csr -subj
+                                        "/C=US/ST=California/L=San Francisco/O=Rothchild Bank Inc./CN=rothchildbank.com"
+                                </code>
+                            </li>
+                            <li class="mb-3">
+                                View the csr file generate in previous step.
+                                <code class="custom-code">
+                                    openssl req -in rothchild.csr -text -noout -verify
+                                </code>
+                            </li>
+                            <li class="mb-3">
+                                As a next step go ahead and submit rothchild.csr to MicroCert.
+                            </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+                {% include "footer.html" %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

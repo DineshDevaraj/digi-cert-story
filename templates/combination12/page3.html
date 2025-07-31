@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<body class="bg-light">
+    {% include "restart.html" %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <section id="page-title" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">Digital Certificate Story</h2>
+                            <p class="mt-3 text-secondary">Story continues for <b><i>{{ scenario }}</i></b> scenario
+                                with <b><i>{{ approach }}</i></b> explanation</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="role-explanation" class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary mb-4">{{ page }}. MicroCert's private & public key.</h2>
+                            <ol class="text-secondary">
+                                <li class="mb-3">
+                                    Generate private key.
+                                    <code class="custom-code">
+                                        openssl genrsa -out microcert.priv 2048
+                                    </code>
+                                </li>
+                                <li class="mb-3">
+                                    Extract public key from private key.
+                                    <code class="custom-code">
+                                        openssl rsa -in microcert.priv -pubout -out microcert.pub
+                                    </code>
+                                </li>
+                                <li class="mb-3">
+                                    View the content of both private & public using cat, vim or any other text editor.<br/>
+                                    <code class="custom-code">
+                                        cat microcert.priv<br/>
+                                        cat microcert.pub
+                                    </code>
+                                </li>
+                                <li>
+                                    Next MicroCert should generate a CSR & self-signed certificate.
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+                {% include "footer.html" %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
