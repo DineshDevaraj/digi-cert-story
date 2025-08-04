@@ -26,7 +26,7 @@ alt Bank's Customer
   Rothchild Bank->Web Browser: Handshake
   Web Browser->Rothchild Bank: Handshake Ack
   Rothchild Bank->Web Browser: rothchild.crt
-  note over Web Browser: 1. Extract issue name (MicroAuth) from rothchild.crt\n2. Search in local certificate collection which has MicroAuth in subject\n3. Use microauth.crt to varidate rothchild.crt
+  note over Web Browser: 1. Extract issuer name (MicroAuth) from rothchild.crt\n2. Search in local certificate collection which has MicroAuth in subject\n3. Use microauth.crt to varidate rothchild.crt
   note over Web Browser: 1. Genere AES Key\n2. Extract public key from rothchild.crt\n3. Encrypt AES Key using public key
 
   Web Browser->Rothchild Bank: aes-256-key.enc
