@@ -20,9 +20,28 @@
                         <div class="card-body">
                             <h2 class="card-title text-primary mb-4">{{ page }}. Part-2 HTTPS Communication</h2>
                             <ol class="text-secondary" style="max-width: 750px;">
-                            <li>
-                                In Part-2 of this story track you will learn how digital-certificate is used in communication
-                                between the bank's web-server and the visitor's web-browser.
+                            <li class="mb-3">
+                                Web-browser receives rothchild.crt and extract the issuer's name.
+                                <code class="custom-code">
+                                    issuer_to_find=$(openssl x509 -in rothchild.crt -noout -issuer)<br/>
+                                    issuer_to_find=$(echo $issuer_to_find | awk -F'issuer=' '{ print $2 }')<br/>
+                                    echo $issuer_to_find
+                                </code>
+                            </li>
+                            <li class="mb-3">
+                                Check which certificate has subject = issuer_to_find. The output will be microcert.crt
+                                <code class="custom-code"><pre>for file in *.crt; do
+    if openssl x509 -in "$file" -noout -subject | grep -q "$issuer_to_find"; then
+        echo "$file"
+    fi
+done</pre></code>
+                            </li>
+                            <li class="mb-3">
+                                Use the certificate retrieved in the previous step to validate rothchild.crt
+                                <code class="custom-code">
+                                    openssl verify -CAfile microcert.crt rothchild.crt<br/>
+                                    rothchild.crt: OK
+                                </code>
                             </li>
                             </ol>
                         </div>
