@@ -1,0 +1,38 @@
+title Digital Certificate
+
+participant MicroAuth
+participant Rothchild Bank
+participant Web Browser
+
+alt Certificate Authority Bootstrap
+  note over MicroAuth: 1. Generate Private Key - microauth.priv\n2. Extract Public Key from microauth.priv - microauth.pub\n3. Generate Self-Signed Certificate microauth.crt
+
+  MicroAuth->Web Browser: microauth.crt
+  note over Web Browser: Add microauth.crt to local certificates collection
+end
+
+alt Apply for Certificate
+  note over Rothchild Bank: 1. Generate Private Key - rothchild.priv\n2. Extract Public Key from rothchild.priv - rothchild.pub\n3. Generate (CSR) Certificate Sign Request rothchild.csr
+
+  Rothchild Bank->MicroAuth: rothichild.csr
+  note over MicroAuth: Generate rothchild.crt
+  MicroAuth->Rothchild Bank: rothchild.crt
+
+  note over Rothchild Bank: add rothchild.crt to web-server
+end
+
+alt Bank's Customer
+  Web Browser->Rothchild Bank: https://rothchildbank.com/
+  Rothchild Bank->Web Browser: Handshake
+  Web Browser->Rothchild Bank: Handshake Ack
+  Rothchild Bank->Web Browser: rothchild.crt
+  note over Web Browser: 1. Extract issue name (MicroAuth) from rothchild.crt\n2. Search in local certificate collection which has MicroAuth in subject\n3. Use microauth.crt to varidate rothchild.crt
+  note over Web Browser: 1. Genere AES Key\n2. Extract public key from rothchild.crt\n3. Encrypt AES Key using public key
+
+  Web Browser->Rothchild Bank: aes-256-key.enc
+
+  note over Rothchild Bank: 1. Decrypt aes-256-key.enc using rothchild.priv\n2. From now on all the communication between this web-server\nand web-browser will be encrypted using this aes-key
+
+  Rothchild Bank->Web Browser: AES Key encrypted data
+  Web Browser->Rothchild Bank: AES Key encrypted data
+end
