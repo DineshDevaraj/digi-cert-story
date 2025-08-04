@@ -20,17 +20,25 @@
                         <div class="card-body">
                             <h2 class="card-title text-primary mb-4">{{ page }}. Part-2 Session Key Exchange</h2>
                             <ol class="text-secondary" style="max-width: 750px;">
-                                <li class="mb-3">Once the validation is successful then the web-browser extracts public key
-                                    from rothchild.crt which will be same as rothchild.pub
+                                <li class="mb-3">
+                                    Using rothchild.pub1 encrypt aes-256-key.bin into aes-256-key.enc and share with web-server
+                                    <code class="custom-code"><pre>
+openssl pkeyutl -encrypt -pubin -inkey rothchild.pub1 \
+    -in aes-256-key.bin -out aes-256-key.enc</pre></code>
                                 </li>
-                                <li class="mb-3">Generates a sync encryption key like AES key, encrypt the AES key using
-                                    rothchild.pub and send this to web-server.
+                                <li class="mb-3">
+                                    Web-browser receives aes-256-key.enc and decrypt using rothchild.priv to get AES key
+                                    <code class="custom-code"><pre>
+openssl pkeyutl -decrypt -inkey rothchild.priv \
+    -in aes-256-key.enc -out aes-256-key.bin1</pre></code>
                                 </li>
-                                <li class="mb-3">The web-server receives the encrypted AES key and decrypts it using it's
-                                    private key rothchild.pvt
-                                </li>
-                                <li class="mb-3">From now on every communication between the web-server and the web-bowser
-                                    will be encrypted using this AES key.
+                                <li class="mb-3">
+                                    Note aes-256-key.bin will be equal to aes-256-key.bin1 and
+                                    From now on every communication between web-client and web-server with be encrypted
+                                    with aes-256-key.bin
+                                    <code class="custom-code">
+                                        cmp aes-256-key.bin1 aes-256-key.bin
+                                    </code>
                                 </li>
                             </ol>
                         </div>
