@@ -20,17 +20,17 @@
                         <div class="card-body">
                             <h2 class="card-title text-primary mb-4">{{ page }}. Generate Digital Certificate</h2>
                             <ol class="text-secondary" style="margin-bottom:0; max-width: 750px;">
-                                <li class="mb-3">After receiving the CSR (.csr file) MicroCert will start the process
+                                <li class="mb-3">After receiving the CSR (.csr file) MicroAuth will start the process
                                     of signing the certificate. The result will be a rothchild.crt file that will be send back
                                     to the bank.</li>
                                 <li class="mb-3">Certain fields in the CSR are called (CRI) Certificate Request Information.
                                     Fields like applicant's-name, applicant's-address, applicant's-public-key and
                                     applicant's-signature are part of the CRI.</li>
-                                <li class="mb-3">Generate message-digest (hash) for CRI. Using MicroCert's private key generate
-                                    MicroCert's-signature for this hash, add MicroCert's-signature to the rothchild.crt file
-                                    and add MicroCert's public key to rothchild.crt file.</li>
+                                <li class="mb-3">Generate message-digest (hash) for CRI. Using MicroAuth's private key generate
+                                    MicroAuth's-signature for this hash, add MicroAuth's-signature to the rothchild.crt file
+                                    and add MicroAuth's public key to rothchild.crt file.</li>
                                 <li class="mb-3">Send rothchild.crt file to the bank. <b>Note</b> applicant's-signature and
-                                    MicroCert's-signature are different, Applicant's public key and MicroCert's pulic key are
+                                    MicroAuth's-signature are different, Applicant's public key and MicroAuth's pulic key are
                                     different. Don't confuse between them.</li>
                             </ol>
                         </div>
