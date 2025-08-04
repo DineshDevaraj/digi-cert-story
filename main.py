@@ -12,12 +12,12 @@ templates = Jinja2Templates(directory="templates")
 # Mount static files if needed
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-source_folder = {}
+track_folder = {}
 scenario = ["Validate Website", "Network Management System"]
 approach = ["Theoretical", "Command Line Interface", "Python"]
 for i, s in enumerate(scenario):
     for j, a in enumerate(approach):
-        source_folder[(s, a)] = f"track{i+1}{j+1}"
+        track_folder[(s, a)] = f"track{i+1}{j+1}"
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -33,10 +33,10 @@ async def read_root(
         response.set_cookie(key="page", value=page)
         return response
 
-    folder = source_folder[(scenario, approach)]
+    track = track_folder[(scenario, approach)]
     return templates.TemplateResponse(
-        f"{folder}/page{page}.html",
-        {"request": request, "page": page, "scenario": scenario, "approach": approach},
+        f"{track}/page{page}.html",
+        {"request": request, "page": page, "scenario": scenario, "approach": approach, "track": track},
     )
 
 
