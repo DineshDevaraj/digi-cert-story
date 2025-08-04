@@ -6,16 +6,8 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <section id="page-title" class="mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h2 class="card-title text-primary mb-4">Digital Certificate Story</h2>
-                            <p class="mt-3 text-secondary">Story continues for <b><i>{{ scenario }}</i></b> scenario
-                                with <b><i>{{ approach }}</i></b> explanation</p>
-                        </div>
-                    </div>
-                </section>
-                <section id="congratulations" class="mb-3">
+                {% include "page_title.html" %}
+                <section id="sequence-diagram" class="mb-3">
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h2 class="card-title text-primary mb-4">Sequence Diagram</h2>
