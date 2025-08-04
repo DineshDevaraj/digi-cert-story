@@ -23,20 +23,20 @@
                                 <li class="mb-3">
                                     Generate private key.
                                     <code class="custom-code">
-                                        openssl genrsa -out microcert.priv 2048
+                                        openssl genrsa -out micrcauth.priv 2048
                                     </code>
                                 </li>
                                 <li class="mb-3">
                                     Extract public key from private key.
                                     <code class="custom-code">
-                                        openssl rsa -in microcert.priv -pubout -out microcert.pub
+                                        openssl rsa -in micrcauth.priv -pubout -out micrcauth.pub
                                     </code>
                                 </li>
                                 <li class="mb-3">
                                     View the content of both private & public using cat, vim or any other text editor.<br/>
                                     <code class="custom-code">
-                                        cat microcert.priv<br/>
-                                        cat microcert.pub
+                                        cat micrcauth.priv<br/>
+                                        cat micrcauth.pub
                                     </code>
                                 </li>
                                 <li>

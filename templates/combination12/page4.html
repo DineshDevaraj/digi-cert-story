@@ -26,14 +26,14 @@
                             <li class="mb-3">
                                 Generate (CSR) Certificate Sign Request.
                                 <code class="custom-code">
-                                    openssl req -new -key microcert.priv -out microcert.csr -subj
-                                        "/C=US/ST=California/L=San Francisco/O=Microcert CA Inc./CN=microcert.com"
+                                    openssl req -new -key micrcauth.priv -out micrcauth.csr -subj
+                                        "/C=US/ST=California/L=San Francisco/O=Microcert CA Inc./CN=micrcauth.com"
                                 </code>
                             </li>
                             <li class="mb-3">
-                                View microcert.csr generated in previous step.
+                                View micrcauth.csr generated in previous step.
                                 <code class="custom-code">
-                                    openssl req -in microcert.csr -text -noout -verify
+                                    openssl req -in micrcauth.csr -text -noout -verify
                                 </code>
                             </li>
                             <li>

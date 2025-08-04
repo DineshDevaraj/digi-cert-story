@@ -21,9 +21,9 @@
                             <h2 class="card-title text-primary mb-4">{{ page }}. MicroCert Signs Bank's CSR</h2>
                             <ol class="text-secondary">
                             <li class="mb-3">
-                                Sign rothchild.csr using microcert.crt & microcert.priv<br/>
+                                Sign rothchild.csr using micrcauth.crt & micrcauth.priv<br/>
                                 <code class="custom-code">
-                                    openssl x509 -req -in rothchild.csr -CA microcert.crt -CAkey microcert.priv
+                                    openssl x509 -req -in rothchild.csr -CA micrcauth.crt -CAkey micrcauth.priv
                                         -CAcreateserial -out rothchild.crt -days 365 -sha256
                                 </code>
                             </li>

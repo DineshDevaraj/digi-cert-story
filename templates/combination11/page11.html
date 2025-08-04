@@ -23,12 +23,12 @@
                                 <li class="mb-3">We have a user <b><i>Larry</i></b> typing <a href="#">https://rothchildbank.com</a> into his web-browser.
                                     After initial handshake the web-server responds back with rothchild.crt</li>
                                 <li class="mb-3">Web-browser will have a map of certificate issuer's name against the respective certificate.
-                                    In our case there should be a entry like {"Microcert": "microcert.crt"}
+                                    In our case there should be a entry like {"Microcert": "micrcauth.crt"}
                                 </li>
                                 <li class="mb-3">Once the web-browser receives rothchild.crt it extracts the issuer's name which is "Microcert" in our
-                                    case and loopup for the respective certificate which is "microcert.crt" in our case.
+                                    case and loopup for the respective certificate which is "micrcauth.crt" in our case.
                                 </li>
-                                <li>Next web-bowser will validate the rothchild.crt using microcert.crt. If the validation is successful then the
+                                <li>Next web-bowser will validate the rothchild.crt using micrcauth.crt. If the validation is successful then the
                                     web-browser moves starts session key exchange.
                                 </li>
                             </ol>

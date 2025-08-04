@@ -29,7 +29,7 @@
                                 </code>
                             </li>
                             <li class="mb-3">
-                                Check which certificate has subject = issuer_to_find. The output will be microcert.crt
+                                Check which certificate has subject = issuer_to_find. The output will be micrcauth.crt
                                 <code class="custom-code"><pre>for file in *.crt; do
     if openssl x509 -in "$file" -noout -subject | grep -q "$issuer_to_find"; then
         echo "$file"
@@ -39,7 +39,7 @@ done</pre></code>
                             <li class="mb-3">
                                 Use the certificate retrieved in the previous step to validate rothchild.crt
                                 <code class="custom-code">
-                                    openssl verify -CAfile microcert.crt rothchild.crt<br/>
+                                    openssl verify -CAfile micrcauth.crt rothchild.crt<br/>
                                     rothchild.crt: OK
                                 </code>
                             </li>
