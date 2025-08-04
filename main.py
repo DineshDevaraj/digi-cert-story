@@ -17,7 +17,7 @@ scenario = ["Validate Website", "Network Management System"]
 approach = ["Theoretical", "Command Line Interface", "Python"]
 for i, s in enumerate(scenario):
     for j, a in enumerate(approach):
-        source_folder[(s, a)] = f"combination{i+1}{j+1}"
+        source_folder[(s, a)] = f"track{i+1}{j+1}"
 
 
 @app.get("/", response_class=HTMLResponse)
