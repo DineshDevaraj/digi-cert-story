@@ -1,0 +1,58 @@
+title Digital Certificate
+
+participant MicroAuth
+participant Rothchild Bank
+participant Web Browser
+
+alt Certificate Authority Bootstrap
+
+
+  note over MicroAuth: 1. Generate Private Key\n    $> openssl genrsa -out micrcauth.priv 2048\n\n2. Extract Public Key from microauth.priv\n    $> openssl rsa -in micrcauth.priv -pubout -out micrcauth.pub\n\n3. Generate (CSR) Certificate Sign Request\n    $> openssl req -new -key micrcauth.priv -out micrcauth.csr \ \n         -subj "/C=US/ST=California/L=San Francisco/O=Microcert \n         CA Inc./CN=micrcauth.com"\n\n4. Generate Self-Signed Certificate \n    $> openssl x509 -req -in micrcauth.csr -signkey micrcauth.priv \ \n         -out micrcauth.crt -days 365
+
+
+
+  MicroAuth->Web Browser: microauth.crt
+  note over Web Browser: Add microauth.crt to \nlocal certificates collection
+end
+
+alt Apply for Certificate
+
+
+  note over Rothchild Bank: 1. Generate Private Key\n    $> openssl genrsa -out rothchild.priv 2048\n\n2. Extract Public Key from microauth.priv\n    $> openssl rsa -in rothchild.priv -pubout -out rothchild.pub\n\n3. Generate (CSR) Certificate Sign Request\n    $> openssl req -new -key rothchild.priv -out rothchild.csr \ \n         -subj "/C=US/ST=California/L=San Francisco/O=Rothchild \n         Bank Inc./CN=rothchildbank.com"
+
+
+
+  Rothchild Bank->MicroAuth: rothichild.csr
+
+
+note over MicroAuth: Generate rothchild.crt\n$> openssl x509 -req -in rothchild.csr -CA micrcauth.crt\n     -CAkey micrcauth.priv -CAcreateserial -out rothchild.crt\n     -days 365 -sha256
+
+
+MicroAuth->Rothchild Bank: rothchild.crt
+
+  note over Rothchild Bank: add rothchild.crt to web-server
+end
+
+alt Bank's Customer
+  Web Browser->Rothchild Bank: https://rothchildbank.com/
+  Rothchild Bank->Web Browser: Handshake
+  Web Browser->Rothchild Bank: Handshake Ack
+  Rothchild Bank->Web Browser: rothchild.crt
+
+
+  note over Web Browser: 1. Extract issuer name (MicroAuth) from rothchild.crt\n    $> issuer_to_find=$(openssl x509 -in rothchild.crt -noout -issuer)\n    $> issuer_to_find=$(echo $issuer_to_find | awk -F'issuer=' '{ print $2 }')\n    $> echo $issuer_to_find\n\n2. Search in local certificate collection which has MicroAuth in subject\n    $> for file in *.crt; do \ \n            if openssl x509 -in "$file" -noout -subject | \ \n               grep -q "$issuer_to_find"; then \ \n                  echo "$file" \ \n            fi \ \n         done\n\n3. Use microauth.crt to varidate rothchild.crt\n    $> openssl verify -CAfile micrcauth.crt rothchild.crt
+
+
+  note over Web Browser: 1. Genere AES Key\n    $> openssl rand 32 > aes-256-key.bin\n\n2. Extract public key from rothchild.crt\n    $> openssl x509 -in rothchild.crt -pubkey -noout > rothchild.pub1\n\n3. Encrypt AES Key using public key\n    $> openssl pkeyutl -encrypt -pubin -inkey rothchild.pub1 \ \n         -in aes-256-key.bin -out aes-256-key.enc
+
+
+  Web Browser->Rothchild Bank: aes-256-key.enc
+
+
+  note over Rothchild Bank: 1. Decrypt aes-256-key.enc using rothchild.priv\n    $> openssl pkeyutl -decrypt -inkey rothchild.priv \ \n         -in aes-256-key.enc -out aes-256-key.bin1\n\n2. From now on all the communication between this web-server\n    and web-browser will be encrypted using this aes-key
+
+
+  Rothchild Bank->Web Browser: AES Key encrypted data
+  Web Browser->Rothchild Bank: AES Key encrypted data
+
+end
