@@ -14,21 +14,21 @@
     </style>
     <script>
         function goto_next_page() {
-            fetch('/next-page', {
+            fetch('/digicert/next-page', {
                 method: 'POST',
             }).then(response => {
                 window.location.reload();
             });
         }
         function goto_prev_page() {
-            fetch('/prev-page', {
+            fetch('/digicert/prev-page', {
                 method: 'POST',
             }).then(response => {
                 window.location.reload();
             });
         }
         function restart() {
-            fetch('/restart', {
+            fetch('/digicert/restart', {
                 method: 'POST',
             }).then(response => {
                 window.location.reload();

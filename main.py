@@ -1,10 +1,11 @@
-from fastapi import FastAPI, Request, Form, Cookie, Response, status
+from fastapi import FastAPI, Request, Form, Cookie, Response, status, APIRouter
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from typing import Optional
 
 app = FastAPI()
+router = APIRouter()
 
 # Set up Jinja2 templates
 templates = Jinja2Templates(directory="templates")
@@ -20,7 +21,7 @@ for i, s in enumerate(scenario):
         tracks[(s, a)] = f"track{i+1}{j+1}"
 
 
-@app.get("/", response_class=HTMLResponse)
+@router.get("/", response_class=HTMLResponse)
 async def read_root(
     request: Request,
     page: int = Cookie(None),
@@ -40,7 +41,7 @@ async def read_root(
     )
 
 
-@app.post("/submit-scenario-approach", response_class=HTMLResponse)
+@router.post("/submit-scenario-approach", response_class=HTMLResponse)
 async def set_scenario_approach(
     response: Response,
     scenario: Optional[str] = Form(...),
@@ -52,7 +53,7 @@ async def set_scenario_approach(
     return response
 
 
-@app.post("/next-page", response_class=HTMLResponse)
+@router.post("/next-page", response_class=HTMLResponse)
 async def goto_next_page(
     response: Response,
     page: int = Cookie(...),
@@ -62,7 +63,7 @@ async def goto_next_page(
     return response
 
 
-@app.post("/prev-page", response_class=HTMLResponse)
+@router.post("/prev-page", response_class=HTMLResponse)
 async def goto_prev_page(
     response: Response,
     page: int = Cookie(...),
@@ -72,7 +73,7 @@ async def goto_prev_page(
     return response
 
 
-@app.post("/restart", response_class=HTMLResponse)
+@router.post("/restart", response_class=HTMLResponse)
 async def restart(
     response: Response,
 ):
@@ -83,7 +84,7 @@ async def restart(
     return response
 
 
-@app.get("/sequence_diagram", response_class=HTMLResponse)
+@router.get("/sequence_diagram", response_class=HTMLResponse)
 async def sequence_diagram(
     request: Request,
     scenario: Optional[str] = Cookie(...),
@@ -97,4 +98,5 @@ async def sequence_diagram(
     return response
 
 
-# uvicorn main:app --reload --host 0.0.0.0 --port 7071
+# uvicorn main:app --reload --host 0.0.0.0 --port 7072
+app.include_router(router, prefix="/digicert")
