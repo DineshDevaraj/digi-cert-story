@@ -11,7 +11,7 @@ router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
 # Mount static files if needed
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/digicert/static", StaticFiles(directory="static"), name="static")
 
 tracks = {}
 scenario = ["Validate Website", "Network Management System"]
