@@ -98,5 +98,5 @@ async def sequence_diagram(
     return response
 
 
-# uvicorn main:app --reload --host 0.0.0.0 --port 7072
+# uvicorn main:app --reload --host 0.0.0.0 --port 7386
 app.include_router(router, prefix="/digicert")
